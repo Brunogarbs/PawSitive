@@ -46,7 +46,7 @@ document.getElementById('animalForm').addEventListener('submit', function(event)
             };
 
             // Envia os dados para o servidor Flask
-            fetch('http://127.0.0.1:5000/cadastrar_animal', {
+            fetch('/cadastrar_animal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
