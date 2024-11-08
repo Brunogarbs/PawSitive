@@ -21,7 +21,7 @@ function entrar() {
         senha: senha.value
     };
 
-    fetch('http:pawsitive-vp7l.onrender.com/login', {
+    fetch('https:pawsitive-vp7l.onrender.com/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
