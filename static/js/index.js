@@ -24,7 +24,7 @@ function NovoCadastro() {
 }
 // Função para carregar os animais no carrossel
 function carregarAnimais() {
-    fetch('http://localhost:5000/animais')  // Ajuste para o endereço correto se necessário
+    fetch('/animais')  // Ajuste para o endereço correto se necessário
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao carregar os animais');
