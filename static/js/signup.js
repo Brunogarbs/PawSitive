@@ -63,7 +63,7 @@ async function cadastrar() {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/cadastrar', { // Ajuste a URL se necessário
+            const response = await fetch('/cadastrar', { // Ajuste a URL se necessário
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
