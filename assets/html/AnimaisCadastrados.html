@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Cadastro de Animal</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/AnimaisCadastrados.css">
+</head>
+<body>
+    <header class="header">
+        <img src="../images/Pawsitive.png">
+        <h1><span class="laranja">Paws</span>itive</h1>
+        <button onclick="sair()">Sair</button>
+    </header> 
+
+    <main>
+        <div class="form-container">
+            <h2>Cadastro de Novo Animal</h2>
+            <div id="msgError" class="error-message" style="display: none;"></div>
+            <div id="msgSuccess" class="success-message" style="display: none;"></div>
+            <form id="animalForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="animal">Animal:</label>
+                    <input type="text" id="animal" name="animal" placeholder="Cachorro, gato..." required>
+                </div>
+                <div class="form-group">
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="Macho">Macho</option>
+                        <option value="Fêmea">Fêmea</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cor">Cor:</label>
+                    <input type="text" id="cor" name="cor" placeholder="Branco, preto, malhado..." required>
+                </div>
+                <div class="form-group">
+                    <label for="localizacao">Localização:</label>
+                    <input type="text" id="localizacao" name="localizacao" placeholder="Rua, Avenida, Estrada..." required>
+                </div>
+                <div class="form-group">
+                    <label for="foto">Upload de Foto:<i>(Foto em posição horizontal)</i></label>
+                    <input type="file" id="foto" name="foto" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="Observacao">Observações:</label>
+                    <input type="text" id="observacoes" name="observacoes" placeholder="Situação do animal, foi levado à algum lugar...">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="../js/NovoCadastro.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
