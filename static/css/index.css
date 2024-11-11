@@ -16,9 +16,7 @@ body {
 
 .laranja {
     color: orange;
-  }
-  
-
+}
 
 .header {
     display: flex;
@@ -41,6 +39,8 @@ body {
 .header h1 {
     margin: 0;
     font-size: 24px;
+    flex-grow: 1; /* Faz o título crescer e ocupar o espaço disponível */
+    text-align: center; /* Centraliza o texto */
 }
 
 .header button {
@@ -52,10 +52,53 @@ body {
     border-radius: 4px;
     cursor: pointer;
     line-height: inherit;
-    transition: background-color 0.3s ease; /* Transição suave na cor de fundo */
-
+    transition: background-color 0.3s ease;
 }
 
 .header button:hover {
     background-color: #03080e;
+}
+
+/* Ajustes Responsivos */
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .header img {
+        height: 60px;
+    }
+
+    .header button {
+        margin-top: 10px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header {
+        padding: 10px;
+    }
+
+    .header img {
+        height: 50px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+    }
+
+    .header button {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
 }
