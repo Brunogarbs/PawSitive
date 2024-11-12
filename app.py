@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, Response
+from flask import Flask, request, jsonify, render_template, Response, redirect,url_for, session
 from flask_cors import CORS
 import base64
 import psycopg2
@@ -74,6 +74,38 @@ def login():
         cur.close()
         conn.close()
 
+
+# Rota para alterar a senha
+@app.route('/alterar_senha', methods=['POST'])
+def alterar_senha():
+    dados = request.get_json()
+    usuario = dados.get('usuario')
+    senha_atual = dados.get('senha_atual')
+    nova_senha = dados.get('nova_senha')
+
+    # Conectar ao banco de dados
+    conn = connect_db()
+    cur = conn.cursor()
+
+    # Verificar se a senha atual está correta
+    cur.execute("SELECT senha FROM users WHERE usuario = %s", (usuario,))
+    senha_bd = cur.fetchone()
+
+    if senha_bd and check_password_hash(senha_bd[0], senha_atual):
+        # Gerar o hash da nova senha
+        nova_senha_hash = generate_password_hash(nova_senha)
+
+        # Atualizar a senha no banco de dados
+        cur.execute("UPDATE users SET senha = %s WHERE usuario = %s", (nova_senha_hash, usuario))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return jsonify({"message": "Senha alterada com sucesso!"}), 200
+    else:
+        cur.close()
+        conn.close()
+        return jsonify({"message": "Senha atual incorreta!"}), 400
+
 # Rota Cadastrar Animais
 @app.route('/cadastrar_animal', methods=['POST'])
 def cadastrar_animal():
@@ -112,6 +144,7 @@ def cadastrar_animal():
         cur.close()
         conn.close()
 
+# Rota para listar os animais cadastrados
 @app.route('/animais', methods=['GET'])
 def get_animais():
     conn = connect_db()
@@ -130,8 +163,16 @@ def get_animais():
             cor = animal[3]
             localizacao = animal[4]
             observacoes = animal[5]
-            foto_base64 = base64.b64encode(animal[6]).decode('utf-8')  # Converte para base64
+            foto = animal[6]  # A foto é armazenada em formato binário no banco
             
+            # Verificando se a foto existe antes de tentar convertê-la
+            if foto:
+                foto_base64 = base64.b64encode(foto).decode('utf-8')  # Converte para base64
+                foto_data_uri = f"data:image/png;base64,{foto_base64}"
+            else:
+                foto_data_uri = None  # Caso não haja foto, o campo será None
+            
+            # Monta o dicionário com os dados do animal
             animais_data.append({
                 'id': id_animal,
                 'nome': animal_nome,
@@ -139,7 +180,7 @@ def get_animais():
                 'cor': cor,
                 'localizacao': localizacao,
                 'observacoes': observacoes,
-                'foto': f"data:image/png;base64,{foto_base64}"
+                'foto': foto_data_uri
             })
 
         return jsonify(animais_data), 200
@@ -149,6 +190,80 @@ def get_animais():
         cur.close()
         conn.close()
 
+
+@app.route('/listar_animais/<user_logado>', methods=['GET'])
+def listar_animais(user_logado):
+    # Verifica se o 'user_logado' foi passado como parte da URL
+    try:
+        user_logado = int(user_logado)  # Tenta converter o user_logado para um inteiro
+    except ValueError:
+        return jsonify({'error': 'ID de usuário inválido'}), 400
+
+    if not user_logado:
+        return jsonify({'error': 'Usuário não autenticado'}), 401
+
+    conn = connect_db()
+    cur = conn.cursor()
+    try:
+        # Busca todos os animais com as informações do usuário logado
+        cur.execute("SELECT id_resgate, animal, sexo, cor, localizacao, observacoes, foto FROM animals WHERE id_usuario = %s", (user_logado,))
+        animais = cur.fetchall()
+
+        animais_data = []
+        for animal in animais:
+            id_animal = animal[0]
+            animal_nome = animal[1]
+            sexo = animal[2]
+            cor = animal[3]
+            localizacao = animal[4]
+            observacoes = animal[5]
+            foto = animal[6]
+            
+            # Verificando se a foto existe antes de tentar convertê-la
+            if foto:
+                foto_base64 = base64.b64encode(foto).decode('utf-8')
+                foto_data_uri = f"data:image/png;base64,{foto_base64}"
+            else:
+                foto_data_uri = None
+            
+            # Monta o dicionário com os dados do animal
+            animais_data.append({
+                'id': id_animal,
+                'nome': animal_nome,
+                'sexo': sexo,
+                'cor': cor,
+                'localizacao': localizacao,
+                'observacoes': observacoes,
+                'foto': foto_data_uri
+            })
+
+        return jsonify(animais_data), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cur.close()
+        conn.close()
+
+
+
+@app.route('/remover-animal/<int:id>', methods=['DELETE'])
+def remover_animal(id):
+    try:
+        conn = connect_db()
+        cur = conn.cursor() 
+
+        # Deleta o animal pelo ID
+        cur.execute("DELETE FROM animals WHERE id_resgate = %s", (id,))
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
+        return '', 204  # Retorna status 204 (sem conteúdo) após a remoção
+    except Exception as e:
+        print(f"Erro ao remover animal: {e}")
+        return 'Erro ao remover animal', 500
+    
 # Rota principal para renderizar index.html com dados dos animais
 @app.route('/')
 def index():

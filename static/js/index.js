@@ -1,3 +1,7 @@
+function index() {
+    window.location.href = "/";
+}
+
 // Verificação se o usuário está logado
 if (localStorage.getItem("token") == null) {
     alert("Você precisa estar logado para acessar essa página!");
@@ -21,6 +25,14 @@ function sair() {
 // Função para redirecionar para a página de Novo Cadastro
 function NovoCadastro() {
     window.location.href = "./static/html/NovoCadastro.html";
+}
+
+function RemoverAnimal() {
+    window.location.href = "./static/html/removeranimal.html";
+}
+
+function AlterarSenha() {
+    window.location.href = "./static/html/AlterarSenha.html";
 }
 // Função para carregar os animais no carrossel
 function carregarAnimais() {

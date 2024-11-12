@@ -1,52 +1,140 @@
-
-main {
+/* Definições globais de fontes e remoção de margens/paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Formulário de Cadastro */
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 80px; /* Espaço para o cabeçalho fixo */
+    background-color: rgba(255, 255, 255, 0.63);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  
+  main {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    padding: 20px;
+    flex-direction: column;
+  }
+  
+  .form-container {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.form-container {
-    margin-top: 100px;
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    border: 1px solid #ec8524;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.438);
-}
-
+  
 .form-container h2 {
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+}
+.btn-primary {
+    background-color: #ec8524;
+    border-color: #ec8524;
 }
 
-.form-group label {
+.btn-primary:hover {
+    background-color: #03080e;
+}
+  
+  /* Estilos de campos do formulário */
+  .form-group label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-}
-
-.form-group input[type="file"] {
-    padding: 3px; /* Ajuste o padding para o input file */
-}
-
-.form-group button {
+    font-size: 16px;
+  }
+  
+  .form-group input[type="file"] {
+    padding: 3px;
+  }
+  
+  .form-group button {
     width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ec8524;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-group button:hover {
+    background-color: #03080e;
+  }
+  
+  /* Mensagens de sucesso e erro */
+  #msgError, #msgSuccess {
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+    margin-top: 10px;
+  }
+  
+  #msgError {
+    color: #ff0000;
+    background-color: #ffbbbb;
+  }
+  
+  #msgSuccess {
+    color: #00bb00;
+    background-color: #bbffbe;
+  }
+  
+  /* Estilos do cabeçalho */
+  .header {
+    display: flex;
+    align-items: center;
+    color: rgb(7, 7, 7);
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: rgba(245, 245, 245, 0.877);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .header img {
+    height: 70px;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 24px;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .header button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #ec8524;
@@ -54,28 +142,54 @@ main {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    line-height: inherit;
-    transition: background-color 0.3s ease; /* Transição suave na cor de fundo */
-}
-
-.form-group button:hover {
-    background-color: #03080e;
-}
-
-#msgError{
-    text-align: center;
-    color: #ff0000;
-    background-color: #ffbbbb;
-    padding: 10px;
-    border-radius: 4px;
-    display: none;
+    transition: background-color 0.3s ease;
   }
   
-  #msgSuccess{
-    text-align: center;
-    color: #00bb00;
-    background-color: #bbffbe;
-    padding: 10px;
-    border-radius: 4px;
-    display: none;
+  .header button:hover {
+    background-color: #03080e;
   }
+  
+  /* Ajustes Responsivos */
+  @media screen and (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+    }
+  
+    .header h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  
+    .header img {
+      height: 60px;
+    }
+  
+    .header button {
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .header {
+      padding: 10px;
+    }
+  
+    .header img {
+      height: 50px;
+    }
+  
+    .header h1 {
+      font-size: 18px;
+    }
+  
+    .header button {
+      padding: 7px 14px;
+      font-size: 12px;
+    }
+  }
+  

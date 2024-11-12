@@ -1,0 +1,189 @@
+/* Definições globais de fontes e remoção de margens/paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Formulário de Alteração de Senha */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 80px; /* Espaço para o cabeçalho fixo */
+  background-color: rgba(255, 255, 255, 0.63);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Largura máxima do formulário */
+  margin-top: 20px; /* Espaçamento superior */
+}
+
+form h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Estilos de campos do formulário */
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+form input[type="password"]:focus {
+  border-color: #ec8524;
+  outline: none;
+}
+
+/* Estilos do botão */
+form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #ec8524;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #03080e;
+}
+
+/* Estilos da mensagem de erro ou sucesso */
+#mensagem {
+  margin-top: 20px;
+  color: #ff0000;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Mensagens de sucesso e erro */
+#msgError {
+  text-align: center;
+  color: #ff0000;
+  background-color: #ffbbbb;
+  padding: 10px;
+  border-radius: 4px;
+  display: none;
+}
+
+#msgSuccess {
+  text-align: center;
+  color: #00bb00;
+  background-color: #bbffbe;
+  padding: 10px;
+  border-radius: 4px;
+  display: none;
+}
+
+/* Estilos do cabeçalho */
+.header {
+  display: flex;
+  align-items: center;
+  color: rgb(7, 7, 7);
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: rgba(245, 245, 245, 0.877);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.header img {
+  height: 70px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  flex-grow: 1; /* Faz o título crescer e ocupar o espaço disponível */
+  text-align: center; /* Centraliza o texto */
+}
+
+.header button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ec8524;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: inherit;
+  transition: background-color 0.3s ease;
+}
+
+.header button:hover {
+  background-color: #03080e;
+}
+
+/* Ajustes Responsivos */
+@media screen and (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+  }
+
+  .header h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+  }
+
+  .header img {
+      height: 60px;
+  }
+
+  .header button {
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 8px 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+      padding: 10px;
+  }
+
+  .header img {
+      height: 50px;
+  }
+
+  .header h1 {
+      font-size: 18px;
+  }
+
+  .header button {
+      padding: 7px 14px;
+      font-size: 12px;
+  }
+}

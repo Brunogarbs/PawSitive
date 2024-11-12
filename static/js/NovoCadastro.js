@@ -1,8 +1,20 @@
+function index() {
+    window.location.href = "/";
+}
+
 // Função para sair
 function sair() {
     localStorage.removeItem("token");
     localStorage.removeItem("userLogado");
-    window.location.href = "../html/signin.html";
+    window.location.href = "./static/html/signin.html";
+}
+
+function RemoverAnimal() {
+    window.location.href = "../html/removeranimal.html";
+}
+
+function AlterarSenha() {
+    window.location.href = "../html/AlterarSenha.html";
 }
 
 let msgError = document.querySelector('#msgError');
